@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <script src="./dist/index.js"></script>
+    <script>
+        function gethash(target){
+            window["BrowserFileHasher"].hash(target.files[0],"sha256").then(res=>{
+                document.writeln(res);
+            });
+        }
+    </script>
+  </head>
+  <body><input type="file" onchange="gethash(this)" ></input></body>
+</html>
