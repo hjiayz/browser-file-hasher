@@ -1,1 +1,1 @@
-tool for file worker sha1
+tool for file worker sha
