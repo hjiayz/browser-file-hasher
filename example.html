@@ -4,15 +4,21 @@
     <script src="./dist/index.js"></script>
     <script>
         function gethash(target) {
+            const out = document.getElementById("out");
             let time = console.time("test");
-            window["BrowserFileHasher"].hash(target.files[0], "sha256").then(res => {
+            let size = target.files[0].size;
+            let onprog = (state) => out.innerText = parseInt(state * 100 / size) + "%";
+            window["BrowserFileHasher"].hash(target.files[0], "sha256", onprog, "hex").then(res => {
                 console.timeEnd("test");
-                document.writeln(res);
+                out.innerText = res;
             });
         }
     </script>
 </head>
 
-<body><input type="file" onchange="gethash(this)"></input></body>
+<body>
+    <input type="file" onchange="gethash(this)"></input>
+    <div id="out"></div>
+</body>
 
 </html>

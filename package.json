@@ -1,7 +1,7 @@
 {
   "name": "browser-file-hasher",
   "version": "1.0.0",
-  "description": "",
+  "description": "tool for file worker sha\r - [example](https://hjiayz.github.io/browser-file-hasher/example.html)",
   "main": "dist/index.js",
   "scripts": {
     "build": "webpack --mode production"
@@ -19,5 +19,13 @@
     "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1",
     "worker-loader": "^2.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hjiayz/browser-file-hasher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hjiayz/browser-file-hasher/issues"
+  },
+  "homepage": "https://github.com/hjiayz/browser-file-hasher#readme"
 }

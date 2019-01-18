@@ -13,7 +13,7 @@ worker.onmessage = function ({ data }) {
   }
 };
 
-function hash(file, algorithm, onProgress) {
+function hash(file, algorithm, onProgress, format) {
   return new Promise((res, err) => {
     while (callbacks[count] !== undefined) {
       if (count >= Number.MAX_SAFE_INTEGER) {
@@ -23,7 +23,7 @@ function hash(file, algorithm, onProgress) {
       }
     }
     callbacks[count] = [res, err, onProgress];
-    worker.postMessage([count, file, algorithm]);
+    worker.postMessage([count, file, algorithm, format]);
   });
 }
 export { hash };

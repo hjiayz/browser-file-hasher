@@ -1,6 +1,6 @@
 import shajs from "sha.js";
 addEventListener('message', function (event) {
-  let [id, file, algorithm] = event.data;
+  let [id, file, algorithm, format] = event.data;
   let hasher = shajs(algorithm);
   let chuck_size = 1 << 16;
   let start = 0;
@@ -15,7 +15,7 @@ addEventListener('message', function (event) {
       let data = new Uint8Array(e.target.result);
       hasher = hasher.update(data);
       if (end == file.size) {
-        postMessage([id, 0, hasher.digest()]);
+        postMessage([id, 0, hasher.digest(format)]);
       } else {
         start = end;
         postMessage([id, 2, start])
