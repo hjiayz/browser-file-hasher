@@ -1,16 +1,19 @@
-import Worker from "./hash.worker.js";
+import Wk from "./hash.worker.js";
 
-const worker = new Worker();
+const worker = new Wk();
 
 let count = 0;
 
 let callbacks = {};
 
-worker.onmessage = function(event) {
-  callbacks[event[0]][event[1]](event[2]);
+worker.onmessage = function ({ data }) {
+  let cb = callbacks[data[0]][data[1]];
+  if (typeof cb === "function") {
+    cb(data[2]);
+  }
 };
 
-function hash(file, algorithm) {
+function hash(file, algorithm, onProgress) {
   return new Promise((res, err) => {
     while (callbacks[count] !== undefined) {
       if (count >= Number.MAX_SAFE_INTEGER) {
@@ -19,7 +22,7 @@ function hash(file, algorithm) {
         count++;
       }
     }
-    callbacks[count] = [res, err];
+    callbacks[count] = [res, err, onProgress];
     worker.postMessage([count, file, algorithm]);
   });
 }

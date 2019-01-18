@@ -1,8 +1,10 @@
 var webpack = require("webpack");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 module.exports = {
-  entry: "./main.js",
+  entry: "./src/main.js",
   output: {
-    path: __dirname,
+    path: __dirname + '/dist',
     filename: "index.js",
     library: "BrowserFileHasher",
     libraryTarget: "umd"
@@ -15,17 +17,11 @@ module.exports = {
           loader: "worker-loader",
           options: { inline: true, fallback: false }
         }
-      },
-      {
-        test: /\.js$/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"]
-          }
-        }
       }
     ]
   },
-  devtool: "source-map"
+  devtool: "source-map",
+  plugins: [
+    new CleanWebpackPlugin(['dist'])
+  ]
 };
